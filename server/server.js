@@ -3,12 +3,14 @@ import express from "express";
 import userRoute from "./routes/user.route.js";
 import { connectDB } from "./db/connection1.db.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 connectDB();
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const port = process.env.PORT || 5000;
 
