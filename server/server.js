@@ -1,13 +1,21 @@
-import express from 'express'
+import dotenv from "dotenv";
+import express from "express";
+import userRoute from "./routes/user.route.js";
+import { connectDB } from "./db/connection1.db.js";
+import { errorMiddleware } from "./middleware/error.middleware.js";
 
-const app = express()
-const port = 5000
+dotenv.config();
+connectDB();
+const app = express();
 
-//routes
-import userRoute from './routes/user.route.js'
+app.use(express.json());
 
-app.use('/api/v1/user', userRoute)
+const port = process.env.PORT || 5000;
 
-app.listen(port, function() {
-    console.log(`server is listening at port${port}`)
-})
+app.use("/api/v1/user", userRoute);
+
+app.use(errorMiddleware);
+
+app.listen(port, function () {
+  console.log(`server is listening at port${port}`);
+});
