@@ -4,12 +4,17 @@ import userRoute from "./routes/user.route.js";
 import { connectDB } from "./db/connection1.db.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
-import MessageRoute from "./routes/message.route.js"
+import MessageRoute from "./routes/message.route.js";
+import cors from "cors";
 
 dotenv.config();
 connectDB();
 const app = express();
 
+app.use(cors({
+  origin: ['http://localhost:5173'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 

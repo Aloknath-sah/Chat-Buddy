@@ -1,8 +1,14 @@
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { User } from "./User";
+import { useDispatch } from "react-redux";
+import { logoutUserThunk } from "../../store/slice/user.thunk";
 
 export const UserSideBar = () => {
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    await dispatch(logoutUserThunk());
+  };
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col">
       {/* heading */}
@@ -33,7 +39,9 @@ export const UserSideBar = () => {
             <img src="https://img.daisyui.com/images/profile/demo/gordon@192.webp" />
           </div>
         </div>
-        <button className="btn btn-soft btn-primary">Logout</button>
+        <button onClick={handleLogout} className="btn btn-soft btn-primary">
+          Logout
+        </button>
       </div>
     </div>
   );
