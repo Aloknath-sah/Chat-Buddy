@@ -4,6 +4,7 @@ import userRoute from "./routes/user.route.js";
 import { connectDB } from "./db/connection1.db.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
+import MessageRoute from "./routes/message.route.js"
 
 dotenv.config();
 connectDB();
@@ -15,6 +16,7 @@ app.use(cookieParser());
 const port = process.env.PORT || 5000;
 
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/message", MessageRoute);
 
 app.use(errorMiddleware);
 
