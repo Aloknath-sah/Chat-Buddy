@@ -1,11 +1,13 @@
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { User } from "./User";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUserThunk } from "../../store/slice/user.thunk";
 
 export const UserSideBar = () => {
   const dispatch = useDispatch();
+  const { otherUsers } = useSelector((state) => state.user);
+  //console.log("otheruser", otherUsers);
   const handleLogout = async () => {
     await dispatch(logoutUserThunk());
   };
@@ -21,15 +23,12 @@ export const UserSideBar = () => {
       </div>
 
       {/* users */}
-      <div className="h-full flex-grow overflow-y-auto">
-        <User />
-        <User />
-        <User />
-        <User />
-        <User />
-        <User />
-        <User />
-        <User />
+      <div className="h-full flex-grow overflow-y-auto flex flex-col gap-3">
+        {otherUsers?.map((userDetails) => {
+          return (
+            <User key={userDetails._id} userDetails={userDetails} />
+          )
+        })}
       </div>
 
       {/* footer */}

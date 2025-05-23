@@ -61,3 +61,17 @@ export const getUserProfileThunk = createAsyncThunk("user/getProfile", async (_,
     return isRejectedWithValue(errorOutput)
   }
 });
+
+export const getOtherUsersThunk = createAsyncThunk("user/getOtherUsers", async (_, {rejectWithValue}) => {
+  console.log("hello")
+  try {
+    const response = await axiosInstance.get("/user/get-other-users");
+    console.log("userThunk", response)
+    return response.data
+  } catch (error) {
+    console.error(error)
+    const errorOutput = error?.response?.data?.errMessage;
+    
+    return isRejectedWithValue(errorOutput)
+  }
+});
