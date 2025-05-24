@@ -15,8 +15,14 @@ const userSlice = createSlice({
     userProfile: null,
     screenLoading: false,
     otherUsers: null,
+    selectedUser:JSON.parse(localStorage.getItem("selectedUser")) ,
   },
-  reducers: {},
+  reducers: {
+    setSelectedUser: (state, action) => {
+       localStorage.setItem("selectedUser",JSON.stringify(action.payload))
+      state.selectedUser = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(loginUserThunk.pending, (state, action) => {
       state.buttonLoading = true;
@@ -49,6 +55,9 @@ const userSlice = createSlice({
       state.userProfile = null;
       state.isAuthenticated = false;
       state.buttonLoading = false;
+      state.selectedUser = null;
+      state.otherUsers = null;
+      localStorage.clear()
     });
     builder.addCase(logoutUserThunk.rejected, (state, action) => {
       state.buttonLoading = false;
@@ -72,7 +81,7 @@ const userSlice = createSlice({
       state.screenLoading = true;
     });
     builder.addCase(getOtherUsersThunk.fulfilled, (state, action) => {
-      console.log("userslice", action.payload)
+      console.log("userslice", action.payload);
       state.otherUsers = action.payload?.responseData;
       state.screenLoading = false;
     });
@@ -82,5 +91,5 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+export const { setSelectedUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -64,10 +64,10 @@ export const login = asyncHandler(async (req, res, next) => {
   const tokenData = {
     _id: user?._id
   }
-  console.log("tokenData", tokenData, process.env.JWT_SECRET,  process.env.JWT_EXPIRES)
+
   const token = jwt.sign(tokenData, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES})
   const cookieExpireTime = ms(process.env.JWT_EXPIRES)
-console.log("Sending Cookie Token:", token, cookieExpireTime);
+
   res.status(200).cookie("token", token, {
     
     expires: new Date(Date.now() +  cookieExpireTime),

@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { User } from "./User";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUserThunk } from "../../store/slice/user.thunk";
+import { getOtherUsersThunk, logoutUserThunk } from "../../store/slice/user.thunk";
 
 export const UserSideBar = () => {
   const dispatch = useDispatch();
-  const { otherUsers } = useSelector((state) => state.user);
+  const { otherUsers, userProfile } = useSelector((state) => state.user);
+ 
   //console.log("otheruser", otherUsers);
   const handleLogout = async () => {
     await dispatch(logoutUserThunk());
   };
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(getOtherUsersThunk());
+    })();
+  }, []);
+
   return (
     <div className="max-w-[20rem] w-full h-screen flex flex-col">
       {/* heading */}
@@ -26,7 +34,7 @@ export const UserSideBar = () => {
       <div className="h-full flex-grow overflow-y-auto flex flex-col gap-3">
         {otherUsers?.map((userDetails) => {
           return (
-            <User key={userDetails._id} userDetails={userDetails} />
+            <User key={userDetails?._id} userDetails={userDetails} />
           )
         })}
       </div>
@@ -35,7 +43,8 @@ export const UserSideBar = () => {
       <div className="flex items-center justify-between p-3">
         <div className="avatar avatar-online">
           <div className="w-20 rounded-full">
-            <img src="https://img.daisyui.com/images/profile/demo/gordon@192.webp" />
+            <img src={userProfile?.avatar} />
+            <h2>{userProfile?.username} </h2>
           </div>
         </div>
         <button onClick={handleLogout} className="btn btn-soft btn-primary">

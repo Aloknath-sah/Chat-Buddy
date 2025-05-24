@@ -1,9 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedUser } from "../../store/slice/userSlice";
 
 export const User = ({ userDetails }) => {
-  //console.log(userDetails)
+  const dispatch = useDispatch();
+  const { selectedUser } = useSelector((state) => state.user);
+
+  const handleUserClick = () => {
+    dispatch(setSelectedUser(userDetails));
+  };
+
   return (
-    <div className="flex gap-5 items-center hover:bg-gray-700 p-2 cursor-pointer">
+    <div
+      onClick={handleUserClick}
+      className={`flex gap-5 items-center hover:bg-gray-700 p-2 cursor-pointer ${
+        userDetails?._id === selectedUser?._id && "bg-gray-700"
+      }`}
+    >
       <div className="avatar avatar-online">
         <div className="w-12 rounded-full">
           <img src={userDetails?.avatar} />
