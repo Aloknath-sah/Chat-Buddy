@@ -4,7 +4,7 @@ import { Message } from "./Message";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getMessageThunk } from "../../store/slice/message/message.thunk.js";
-import { SendMessage } from "./sendMessage.jsx";
+import { SendMessage } from "./SendMessage.jsx";
 
 export const MessageContainer = () => {
   const { selectedUser } = useSelector((state) => state.user);
