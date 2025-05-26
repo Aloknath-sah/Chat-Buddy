@@ -35,7 +35,7 @@ export const SignUp = () => {
     if (signupData.password !== signupData.confirmPassword) {
       return toast.error("Password and confirm password doesn't match");
     }
-    console.log(signupData);
+
     const response = await dispatch(registerUserThunk(signupData));
 
     if (response?.payload?.success) {

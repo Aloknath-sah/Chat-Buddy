@@ -15,7 +15,7 @@ export const SendMessage = () => {
     await dispatch(
       sendMessageThunk({ receiverId: selectedUser?._id, message })
     );
-    await dispatch(getMessageThunk({ receiverId: selectedUser._id }));
+    //await dispatch(getMessageThunk({ receiverId: selectedUser._id }));
     setMessage("");
   };
 

@@ -30,6 +30,7 @@ const userSlice = createSlice({
     builder.addCase(loginUserThunk.fulfilled, (state, action) => {
       state.userProfile = action.payload?.responseData?.user;
       state.isAuthenticated = true;
+       state.buttonLoading = false;
     });
     builder.addCase(loginUserThunk.rejected, (state, action) => {
       state.buttonLoading = false;
@@ -42,6 +43,7 @@ const userSlice = createSlice({
     builder.addCase(registerUserThunk.fulfilled, (state, action) => {
       state.userProfile = action.payload?.responseData?.user;
       state.isAuthenticated = true;
+       state.buttonLoading = false;
     });
     builder.addCase(registerUserThunk.rejected, (state, action) => {
       state.buttonLoading = false;
@@ -68,7 +70,7 @@ const userSlice = createSlice({
       state.screenLoading = true;
     });
     builder.addCase(getUserProfileThunk.fulfilled, (state, action) => {
-      state.userProfile = null;
+      state.userProfile = action.payload?.responseData;
       state.isAuthenticated = true;
       state.screenLoading = false;
     });
@@ -81,7 +83,6 @@ const userSlice = createSlice({
       state.screenLoading = true;
     });
     builder.addCase(getOtherUsersThunk.fulfilled, (state, action) => {
-      console.log("userslice", action.payload);
       state.otherUsers = action.payload?.responseData;
       state.screenLoading = false;
     });

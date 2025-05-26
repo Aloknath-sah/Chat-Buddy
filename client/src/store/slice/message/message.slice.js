@@ -32,7 +32,6 @@ const messageSlice = createSlice({
       state.buttonLoading = true;
     });
     builder.addCase(getMessageThunk.fulfilled, (state, action) => {
-      console.log(action?.payload);
       state.messages = action.payload?.responseData?.messages;
       state.buttonLoading = false;
     });

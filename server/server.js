@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import {app,server} from './socket/socket.js'
 import express from "express";
 import userRoute from "./routes/user.route.js";
 import { connectDB } from "./db/connection1.db.js";
@@ -7,9 +7,7 @@ import cookieParser from "cookie-parser";
 import MessageRoute from "./routes/message.route.js";
 import cors from "cors";
 
-dotenv.config();
 connectDB();
-const app = express();
 
 app.use(cors({
   origin: ['http://localhost:5173'],
@@ -25,6 +23,6 @@ app.use("/api/v1/message", MessageRoute);
 
 app.use(errorMiddleware);
 
-app.listen(port, function () {
+server.listen(port, function () {
   console.log(`server is listening at port${port}`);
 });

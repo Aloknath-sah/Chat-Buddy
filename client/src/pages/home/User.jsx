@@ -5,6 +5,8 @@ import { setSelectedUser } from "../../store/slice/userSlice";
 export const User = ({ userDetails }) => {
   const dispatch = useDispatch();
   const { selectedUser } = useSelector((state) => state.user);
+  const {onlineUsers} = useSelector(state => state.socket)
+   const isUserOnline = onlineUsers?.includes(userDetails?._id)
 
   const handleUserClick = () => {
     dispatch(setSelectedUser(userDetails));
@@ -17,7 +19,7 @@ export const User = ({ userDetails }) => {
         userDetails?._id === selectedUser?._id && "bg-gray-700"
       }`}
     >
-      <div className="avatar avatar-online">
+      <div className={`avatar ${isUserOnline && 'avatar-online'}`}>
         <div className="w-12 rounded-full">
           <img src={userDetails?.avatar} />
         </div>

@@ -9,7 +9,7 @@ import { SendMessage } from "./sendMessage.jsx";
 export const MessageContainer = () => {
   const { selectedUser } = useSelector((state) => state.user);
   const { messages } = useSelector((state) => state.message);
-  console.log(messages);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
